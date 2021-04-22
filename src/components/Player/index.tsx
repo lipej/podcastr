@@ -19,7 +19,7 @@ export function Player() {
     const episode = episodeList[currentEpisodeIndex]
 
     useEffect(() => {
-        if (!audioRefs.current){
+        if (!audioRefs.current) {
             return
         }
         isPlaying ? audioRefs.current.play() : audioRefs.current.pause();
@@ -71,14 +71,14 @@ export function Player() {
 
                 {episode && (
                     <audio
-                    src={episode.url}
-                    ref={audioRefs}
-                    autoPlay
-                    onPlay={() => setIsPlayingState(true)}
-                    onPause={() => setIsPlayingState(false)}/>
+                        src={episode.url}
+                        ref={audioRefs}
+                        autoPlay
+                        onPlay={() => setIsPlayingState(true)}
+                        onPause={() => setIsPlayingState(false)} />
                 )}
 
-                <div className={styles.buttons}>    
+                <div className={styles.buttons}>
                     <button type="button" disabled={!episode} >
                         <img src="/shuffle.svg" alt="Embaralhar" />
                     </button>
