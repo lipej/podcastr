@@ -14,9 +14,12 @@ export function Player() {
 
     const audioRefs = useRef<HTMLAudioElement>(null);
 
-    const { episodeList, currentEpisodeIndex, isPlaying, playerToggle, setIsPlayingState } = useContext(PlayerContext)
+    const { episodeList, currentEpisodeIndex, isPlaying, playerToggle, setIsPlayingState, playNextEpisode, playPreviousEpisode } = useContext(PlayerContext)
 
     const episode = episodeList[currentEpisodeIndex]
+
+    console.log(currentEpisodeIndex)
+    console.log(episodeList)
 
     useEffect(() => {
         if (!audioRefs.current) {
@@ -75,14 +78,15 @@ export function Player() {
                         ref={audioRefs}
                         autoPlay
                         onPlay={() => setIsPlayingState(true)}
-                        onPause={() => setIsPlayingState(false)} />
+                        onPause={() => setIsPlayingState(false)}
+                         />
                 )}
 
                 <div className={styles.buttons}>
                     <button type="button" disabled={!episode} >
                         <img src="/shuffle.svg" alt="Embaralhar" />
                     </button>
-                    <button type="button" disabled={currentEpisodeIndex <= 0}>
+                    <button type="button" disabled={currentEpisodeIndex <= 0} onClick={() => playPreviousEpisode()}>
                         <img src="/play-previous.svg" alt="Tocar anterior" />
                     </button>
                     <button type="button" className={styles.playButton} disabled={!episode} onClick={() => playerToggle()}>
@@ -92,7 +96,7 @@ export function Player() {
                             <img src="/play.svg" alt="Tocar" />
                         )}
                     </button>
-                    <button type="button" disabled={!episode}>
+                    <button type="button" disabled={currentEpisodeIndex >= episodeList.length - 1} onClick={() => playNextEpisode()}>
                         <img src="/play-next.svg" alt="Tocar proximo" />
                     </button>
                     <button type="button" disabled={!episode}>
