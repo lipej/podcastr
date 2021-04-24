@@ -14,13 +14,16 @@ type PlayerContext = {
     episodeList: Episode[],
     currentEpisodeIndex: number,
     isPlaying: boolean,
-    playerToggle: () => void,
+    isLooping: boolean,
+    isShuffling: boolean,
+    togglePlay: () => void,
     setIsPlayingState: (state: boolean) => void,
     play: (episode: Episode) => void,
     playList: (list: Episode[], index: number) => void,
+    shuffleOn: (index: number) => void,
     playNextEpisode: () => void,
     playPreviousEpisode: () => void,
-    isLooping: boolean,
+    toggleShuffle: () => void,
     toggleLoop: () => void,
 }
 
@@ -36,6 +39,7 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
     const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLooping, setIsLooping] = useState(false);
+    const [isShuffling, setIsShuffling] = useState(false);
 
     function play(episode: Episode) {
         setEpisodeList([episode]);
@@ -49,12 +53,21 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
         setIsPlaying(true);
     }
 
-    function playerToggle() {
+    function togglePlay() {
         setIsPlaying(!isPlaying);
     }
 
     function toggleLoop() {
         setIsLooping(!isLooping);
+    }
+
+    function toggleShuffle() {
+        setIsShuffling(!isShuffling);
+    }
+
+    function shuffleOn(index: number){
+        setCurrentEpisodeIndex(index);
+        setIsPlaying(true);
     }
 
 
@@ -74,14 +87,18 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
         <PlayerContext.Provider value={{ episodeList, 
         currentEpisodeIndex, 
         play, 
-        isPlaying, 
-        playerToggle, 
-        setIsPlayingState, 
         playList,
+        shuffleOn,
+        isPlaying, 
+        isLooping,
+        isShuffling,
+        togglePlay, 
+        setIsPlayingState, 
         playNextEpisode,
         playPreviousEpisode,
         toggleLoop,
-        isLooping,  }}>
+        toggleShuffle,
+  }}>
             {children}
         </PlayerContext.Provider>
     )
