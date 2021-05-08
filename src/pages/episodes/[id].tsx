@@ -60,7 +60,7 @@ export default function Episode({ episode }: EpisodeProps) {
 
             <header>
                 <h1>{episode.title}</h1>
-                <span>{episode.members}</span>
+                <p><span>{episode.members}</span></p>
                 <span>{episode.published_at}</span>
                 <span>{episode.durationAsString}</span>
 
@@ -89,10 +89,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         thumbnail: data.thumbnail,
         members: data.members,
         published_at: format(parseISO(data.published_at), 'd, MMM yy', { locale: ptBR }),
-        duration: Number(data.file.duration),
-        durationAsString: convertDurationToTimeString(Number(data.file.duration)),
+        duration: Number(data.fileduration),
+        durationAsString: convertDurationToTimeString(Number(data.fileduration)),
         description: data.description,
-        url: data.file.url
+        url: data.fileurl
     }
 
     return {

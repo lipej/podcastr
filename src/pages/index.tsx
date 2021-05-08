@@ -136,9 +136,9 @@ export const getStaticProps: GetStaticProps = async () => {
       thumbnail: episode.thumbnail,
       members: episode.members,
       published_at: format(parseISO(episode.published_at), 'd, MMM yy', { locale: ptBR }),
-      duration: Number(episode.file.duration),
-      durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
-      url: episode.file.url
+      duration: Number(episode.fileduration),
+      durationAsString: convertDurationToTimeString(Number(episode.fileduration)),
+      url: episode.fileurl
 
     }
   })
